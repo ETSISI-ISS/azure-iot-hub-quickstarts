@@ -15,18 +15,10 @@ namespace read_d2c_messages
 {
     class ReadDeviceToCloudMessages
     {
-        // The event hub-compatible endpoint from your IoT Hub instance. 
-		// az iot hub show --query properties.eventHubEndpoints.events.endpoint --name {your IoT Hub name}
-        private readonly static string s_eventHubsCompatibleEndpoint = "{your eventHubEndpoints.events.endpoint here}";
-
-        // The event hub-compatible name of your IoT Hub instance
-        // az iot hub show --query properties.eventHubEndpoints.events.path --name {your IoT Hub name}		   
-        private readonly static string s_eventHubsCompatiblePath = "{your eventHubEndpoints.events.path here}";
-        
-        // A primary or shared access key from your IoT Hub instance, with the 'service' permission
-		// az iot hub policy show --name service --query primaryKey --hub-name {your IoT Hub name}
-        private readonly static string s_iotHubSasKey = "{your iothub primaryKey here}";
-        private readonly static string s_iotHubSasKeyName = "service";
+   
+	//The connection string to the event hub-compatible endpoint. Use the Azure portal to get this parameter.  
+        private readonly static string connectionString = "{delete brackets and put your event hub-compatible endpoint here}"  
+	    
         private static EventHubClient s_eventHubClient;
 
         // Asynchronously create a PartitionReceiver for a partition and then start 
@@ -73,8 +65,7 @@ namespace read_d2c_messages
 
             // Create an EventHubClient instance to connect to the
             // IoT Hub Event Hubs-compatible endpoint.
-            var connectionString = new EventHubsConnectionStringBuilder(new Uri(s_eventHubsCompatibleEndpoint), s_eventHubsCompatiblePath, s_iotHubSasKeyName, s_iotHubSasKey);
-            s_eventHubClient = EventHubClient.CreateFromConnectionString(connectionString.ToString());
+            s_eventHubClient = EventHubClient.CreateFromConnectionString(connectionString);
 
             // Create a PartitionReciever for each partition on the hub.
             var runtimeInfo = await s_eventHubClient.GetRuntimeInformationAsync();
