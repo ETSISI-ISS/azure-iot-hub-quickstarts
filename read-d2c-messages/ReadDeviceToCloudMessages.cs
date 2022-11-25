@@ -17,7 +17,7 @@ namespace read_d2c_messages
     {
    
 	//The connection string to the event hub-compatible endpoint. Use the Azure portal to get this parameter.  
-        private readonly static string connectionString = "{delete brackets and put your event hub-compatible endpoint here}"  
+        private readonly static string connectionString = "{delete brackets and put your event hub-compatible endpoint here}";  
 	    
         private static EventHubClient s_eventHubClient;
 
